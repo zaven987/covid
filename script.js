@@ -18,8 +18,8 @@ async function showCountries(date) {
     deaths.innerHTML = 'Deaths'
     cases.append(deaths)
     table.append(cases)
-    for (let i = 0; i < 10; i++) {
-        let countryName = countriesObj.countries[i].name;
+    countriesObj.countries.forEach((country, i) => {
+        let countryName = country.name;
         let provincesDaily = data.filter(province => province.countryRegion === countryName)
         let confirmedSumDaily = provincesDaily.reduce((sum, province) => sum + Number(province.confirmed), 0)
         let recoveredSumDaily = provincesDaily.reduce((sum, province) => sum + Number(province.recovered), 0)
@@ -38,7 +38,7 @@ async function showCountries(date) {
         deathsCol.innerHTML = deathsSumDaily;
         newRow.append(deathsCol)
         table.append(newRow)
-    }
+    })
 }
 datepicker.onchange = (e) => {
     table.innerHTML = ''
